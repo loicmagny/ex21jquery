@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="jquery-3.2.1.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Exercice 5</title>
+</head>
+<body>
+  <div id="square"> </div>
+  <form>
+    <label for="nom">deplacement : </label><input type="texte" name="nom" value="" id="deplacement" />
+  </form>
+  <script>
+    $(function(){
+    $('#deplacement').focus(function(){
+      //initialisation des variable marginTop pour le déplacement vertical, marginLeft pour le déplacement horizontal
+      var marginLeft=0, marginTop=0;
+      //Au chargement de la page on définit la taille de la fenetre et du carré
+      var maxHeight=$(window).height()
+      var maxWidth=$(window).width();
+      var divSize=$('#square').width();
+      //vérification des résultat dans la console
+      console.log(maxWidth + ' et ' + maxHeight + ' et ' + divSize);
+      //déclaration de la fonction keydown avec la variable key afin de renvoyer le caractère taper
+      $('#deplacement').keydown(function(key){
+          //initialisation de la variable codeAscii qui renvoi de le code ASCII du caractère taper grace à .which
+          var codeAscii = key.which;
+          //renvoi de la valeur dans la console
+          console.log(codeAscii);
+          //deplacement de la div en tenant compte du caractère taper
+          if(codeAscii==37){
+            console.log('gauche');
+            //renvoi de la div à droite de la fenetre si la div dépasse à gauche
+            if(marginLeft<0){
+              marginLeft=maxWidth-divSize;
+              $('#square').css('margin-left', marginLeft + 'px');
+            }else{
+              marginLeft -=10;
+              $('#square').css('margin-left', marginLeft + 'px');
+            }
+          }else if (codeAscii==38) {
+            console.log('haut');
+            //renvoi de la div à droite de la fenetre si la div dépasse à gauche
+            if(marginTop<0){
+              marginTop=maxHeight-divSize;
+              $('#square').css('margin-top', marginTop + 'px');
+            }else{
+              marginTop-=10;
+              $('#square').css('margin-top', marginTop + 'px');
+            }
+          }else if (codeAscii==39) {
+            console.log('droite');
+            //renvoi de la div à gauche de la fenetre si la div dépasse à droite
+            if(marginLeft+divSize>maxWidth){
+              marginLeft=0;
+              $('#square').css('margin-left', marginLeft + 'px');
+            }else{
+              marginLeft +=10;
+              $('#square').css('margin-left', marginLeft + 'px');
+            }
+          }else if (codeAscii==40) {
+            console.log('bas');
+            //renvoi de la div en haut de la fenetre si la div dépasse en bas
+            if(marginTop+divSize>maxHeight){
+              marginTop=0;
+              $('#square').css('margin-top', marginTop + 'px');
+            }else{
+              marginTop+=10;
+              $('#square').css('margin-top', marginTop + 'px');
+            }
+          }
+        })
+      })
+    })
+  </script>
+</body>
+</html>
